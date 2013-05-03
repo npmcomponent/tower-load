@@ -1,0 +1,9 @@
+{
+  "name": "tower-load",
+  "repo": "tower/load",
+  "description": "Tower Load component",
+  "version": "0.0.1",
+  "keywords": [],
+  "scripts": ["index.js"],
+  "license": "MIT"
+}
