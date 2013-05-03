@@ -30,7 +30,7 @@ exports.keys = {};
  */
 
 function load(api, key, path) {
-  return undefined !== path
+  return undefined === path
     ? exports.get(api, key)
     : exports.set(api, key, path);
 }
@@ -52,6 +52,19 @@ exports.set = function(api, key, path){
   if (!exports.paths[key]) {
     exports.paths[key] = path;
     (exports.keys[path] || (exports.keys[path] = [])).push(path);
+
+    //var args = slice.call(arguments, 2);
+    //
+    //exports.on('define ' + name, function(x){
+    //  var result = require(path);
+    //  
+    //  if ('function' === typeof result) {
+    //    args.unshift(x);
+    //    result.apply(result, args);
+    //  }
+    //
+    //  args = undefined;
+    //});
   }
   return exports;
 }
