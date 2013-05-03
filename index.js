@@ -30,7 +30,7 @@ exports.keys = {};
  */
 
 function load(api, key, path) {
-  return 2 === arguments.length
+  return undefined !== path
     ? exports.get(api, key)
     : exports.set(api, key, path);
 }
