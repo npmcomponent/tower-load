@@ -2,7 +2,8 @@ var load = 'undefined' == typeof window
   ? require('..')
   : require('tower-load'); // how to do this better?
 
-var assert = require('assert');
+var assert = require('assert')
+  , fs = require('fs');
 
 var model = require('tower-model');
 
