@@ -23,6 +23,7 @@ describe('load', function(){
     assert(0 === keys(load.paths).length);
     assert(0 === keys(load.keys).length);
     assert(!load.keys[path]);
+    assert(!load.fns[path]);
   });
 });
 
