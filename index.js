@@ -18,6 +18,12 @@ exports.paths = {};
 exports.keys = {};
 
 /**
+ * Map of path to `fn`.
+ */
+
+exports.fns = {};
+
+/**
  * Lazy-load a module.
  *
  * This is something like an IoC container.
@@ -38,8 +44,8 @@ function load(api, key, path) {
 exports.get = function(api, key){
   var path = exports.paths[api.name + '.' + key];
   if (path) {
-    exports.clear(api, key, path);
-    return require(path);
+    var fn = exports.fns[path];
+    if (fn) return fn();
   }
 }
 
@@ -51,33 +57,36 @@ exports.set = function(api, key, path){
   var pathKey = api.name + '.' + key;
   if (!exports.paths[pathKey]) {
     exports.paths[pathKey] = path;
-    (exports.keys[path] || (exports.keys[path] = [])).push(key);
-    
-    var args = Array.prototype.slice.call(arguments, 3);
-    // XXX: need to add several listeners, but only run one
-    api.once('define ' + key, function(x){
-      // remove all listeners
-      exports.keys[path].forEach(function(x){
-        api.off('define ' + x);
-      });
-
-      var result = require(path);
-      if ('function' === typeof result) {
-        args.unshift(x);
-        result.apply(result, args);
-      }
-    
-      args = undefined;
-    });
+    (exports.keys[path] || (exports.keys[path] = [])).push(pathKey);
+    if (!exports.fns[path]) {
+      exports.fns[path] = requireFn(path, Array.prototype.slice.call(arguments, 3));
+    }
   }
   return exports;
 }
 
-exports.clear = function(api, key, path){
-  delete exports.paths[api.name + '.' + key];
+exports.clear = function(path){
   for (var i = 0, n = exports.keys[path].length; i < n; i++) {
     delete exports.paths[exports.keys[path][i]];
   }
   exports.keys[path].length = 0;
   delete exports.keys[path];
+  delete exports.fns[path];
+}
+
+function requireFn(path, args) {
+  return function() {
+    // remove all listeners
+    exports.clear(path);
+
+    var result = require(path);
+
+    if ('function' === typeof result) {
+      args.unshift(x);
+      result.apply(result, args);
+    }
+    
+    args = undefined;
+    return result;
+  }
 }
