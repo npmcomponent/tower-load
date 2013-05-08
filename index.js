@@ -75,14 +75,14 @@ exports.clear = function(path){
 }
 
 function requireFn(path, args) {
-  return function() {
+  return function(obj) {
     // remove all listeners
     exports.clear(path);
 
     var result = require(path);
 
     if ('function' === typeof result) {
-      args.unshift(x);
+      //args.unshift(obj);
       result.apply(result, args);
     }
     
