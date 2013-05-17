@@ -63,7 +63,7 @@ exports.set = function(api, key, path){
     }
   }
   return exports;
-}
+};
 
 exports.clear = function(path){
   for (var i = 0, n = exports.keys[path].length; i < n; i++) {
@@ -72,7 +72,7 @@ exports.clear = function(path){
   exports.keys[path].length = 0;
   delete exports.keys[path];
   delete exports.fns[path];
-}
+};
 
 function requireFn(path, args) {
   return function(obj) {
