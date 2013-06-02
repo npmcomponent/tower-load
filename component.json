@@ -2,7 +2,7 @@
   "name": "tower-load",
   "repo": "tower/load",
   "description": "Tower Load component",
-  "version": "0.5.0pre",
+  "version": "0.1.0pre",
   "keywords": [],
   "scripts": ["index.js"],
   "license": "MIT"
