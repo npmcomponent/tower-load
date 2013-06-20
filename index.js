@@ -32,6 +32,7 @@ exports.fns = {};
  * @param {Function} api An api.
  * @param {String} key A unique key.
  * @param {Path} path Full `require.resolve(x)` path.
+ * @return {Function} A module.
  * @api public
  */
 
