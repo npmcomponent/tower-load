@@ -29,9 +29,10 @@ exports.fns = {};
  * This is something like an IoC container.
  * Make sure the `api.toString()` is unique.
  *
- * @param {Function} api
- * @param {String} key
- * @param {Path} path Full `require.resolve(x)` path
+ * @param {Function} api An api.
+ * @param {String} key A unique key.
+ * @param {Path} path Full `require.resolve(x)` path.
+ * @return {Function} A module.
  * @api public
  */
 
@@ -40,6 +41,15 @@ function load(api, key, path) {
     ? exports.get(api, key)
     : exports.set.apply(exports, arguments);
 }
+
+/**
+ * Get a module.
+ *
+ * @param {Function} api An api.
+ * @param {String} key A unique key
+ * @return {Function} A module.
+ * @api public
+ */
 
 exports.get = function(api, key){
   var path = exports.paths[api.name + '.' + key];
@@ -51,6 +61,13 @@ exports.get = function(api, key){
 
 /**
  * Define how to lazy-load a module.
+ *
+ * @chainable
+ * @param {Function} api An api.
+ * @param {String} key A unique key.
+ * @param {Path} path Full `require.resolve(x)` path.
+ * @return {Function} exports The main `load` function.
+ * @api public
  */
 
 exports.set = function(api, key, path){
@@ -65,6 +82,13 @@ exports.set = function(api, key, path){
   return exports;
 };
 
+/**
+ * Clear all modules.
+ *
+ * @param {Path} path Full `require.resolve(x)` path.
+ * @api public
+ */
+
 exports.clear = function(path){
   for (var i = 0, n = exports.keys[path].length; i < n; i++) {
     delete exports.paths[exports.keys[path][i]];
@@ -73,6 +97,14 @@ exports.clear = function(path){
   delete exports.keys[path];
   delete exports.fns[path];
 };
+
+/**
+ * Return module function results.
+ *
+ * @param {Path} path Full `require.resolve(x)` path.
+ * @param {Array} args Module function arguments array.
+ * @return {Mixed} Module function return value.
+ */
 
 function requireFn(path, args) {
   return function(obj) {
