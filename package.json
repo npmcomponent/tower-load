@@ -1,5 +1,9 @@
 {
   "name": "tower-load",
   "version": "0.1.0pre",
-  "main": "./index.js"
+  "main": "./index.js",
+  "repository": {
+    "type" : "git",
+    "url" : "http://github.com/tower/load.git"
+  }
 }
