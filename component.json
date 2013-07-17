@@ -4,6 +4,13 @@
   "description": "Tower Load component",
   "version": "0.1.0",
   "keywords": [],
-  "scripts": ["index.js"],
-  "license": "MIT"
+  "scripts": [
+    "index.js"
+  ],
+  "license": "MIT",
+  "dependents": {
+    "tower/adapter": "0.1.0",
+    "tower/resource": "0.1.0",
+    "tower/stream": "0.1.0"
+  }
 }
