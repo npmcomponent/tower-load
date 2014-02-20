@@ -1,9 +1,8 @@
 {
   "name": "tower-load",
+  "description": "Tower Load component",
   "version": "0.1.0",
-  "main": "./index.js",
-  "repository": {
-    "type" : "git",
-    "url" : "http://github.com/tower/load.git"
-  }
+  "keywords": [],
+  "dependencies": {},
+  "license": "MIT"
 }
